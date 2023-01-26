@@ -1,3 +1,4 @@
+import { ChevronDownIcon, HamburgerIcon } from '@chakra-ui/icons';
 import {
     Box,
     Center,
@@ -6,31 +7,86 @@ import {
     Text,
     Stack,
     Image,
+    Menu,
+    MenuButton,
+    MenuList,
+    MenuItem,
+    Button,
+    
+    MenuItemOption,
+    MenuGroup,
+    MenuOptionGroup,
+    MenuDivider,
   } from '@chakra-ui/react';
+
+ 
 import axios from 'axios';
+import { useState } from 'react';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import ModalComp from '../Components/ModalComp';
 
   
 
-  export const getAllPostsDetailsById = ({id}) => {
-    axios.get(`http://localhost:3001/posts/${id}`) 
+const getAllPostsDetailsById = (url) => {
+    return fetch(url).then((res) => res.json());
   };
 
   const IMAGE =
     'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
   
     function SinglePost() {
-    const id = useParams()
+     
+        const[proData , setProData] = useState([])
+        const [isModalOpen, setIsModalOpen] = useState(false);
+        // console.log(proData);
+        const {id} = useParams()
   
-    useEffect(()=> {
-        getAllPostsDetailsById(id).then((res) => {
-            console.log(res , "in singleProduct section")
-        })
-    },[])
+        useEffect(() => {
+            getAllPostsDetailsById(`http://localhost:3001/posts/${id}`).then((res) =>
+            setProData(res)
+            );
+          }, [id]);
+
+          const opneModelCom = () =>{
+            setIsModalOpen(true);
+          }
+
+           // just for date addition
+          const dateFormat = () =>{
+            let date = new Date()
+            return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+          }
+
 
     return (
+
+        <>
+        
+   <Box border="2px solid green" display="flex" justifyContent="flex-end" >
+   <Menu  >
+  {({ isOpen }) => (
+    <>
+      <MenuButton isActive={isOpen} as={Button} rightIcon={<ChevronDownIcon />}>
+        {isOpen ? 'Close' : 'More'}
+      </MenuButton>
+      <MenuList>
+        <MenuItem component={Link} to={`/posts/edit/:${proData.id}`}  >Edit</MenuItem>
+        <MenuItem onClick={opneModelCom}>
+        <ModalComp isOpen={isModalOpen} setIsOpe={setIsModalOpen}
+        title= {proData.title}
+        id={id}
+        />
+        </MenuItem>
+        
+      </MenuList>
+    </>
+  )}
+</Menu>
+   </Box>
+
       <Center py={12}>
+   
         <Box
           role={'group'}
           p={6}
@@ -68,27 +124,33 @@ import { useParams } from 'react-router-dom';
               height={230}
               width={282}
               objectFit={'cover'}
-              src={IMAGE}
+              src={proData.imageFileSet}
             />
           </Box>
           <Stack pt={10} align={'center'}>
             <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
-              Brand
+            {proData.title}
             </Text>
             <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-              Nice Chair, pink
+            {proData.body}
             </Heading>
             <Stack direction={'row'} align={'center'}>
-              <Text fontWeight={800} fontSize={'xl'}>
-                $57
-              </Text>
-              <Text textDecoration={'line-through'} color={'gray.600'}>
+                
+                <Text>
+                    {!proData.publishedAt? dateFormat(proData.publishedAt) : null }
+                </Text>
+
+          <Text textDecoration={'line-through'} color={'gray.600'}>
                 $199
               </Text>
             </Stack>
           </Stack>
         </Box>
+
+        
       </Center>
+
+      </>
     );
   }
 

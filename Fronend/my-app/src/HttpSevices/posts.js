@@ -10,3 +10,16 @@ export const getAllPostsDetailsById = ({id}) => {
     return res;
   });
 };
+
+//delte post by id for 
+
+export const deletePost = (id) => {
+    console.log(id)
+    return axios.delete(`http://localhost:3001/posts/${id}`);
+  };
+
+  export const postData = (creds) => {
+    console.log(creds)
+    return axios.post(`http://localhost:3001/posts` , creds);
+  };
+
