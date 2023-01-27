@@ -15,7 +15,6 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
- 
 
 function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();

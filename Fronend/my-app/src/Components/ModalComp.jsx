@@ -8,21 +8,17 @@ import {
   ModalCloseButton,
   Button,
   Box,
-  useToast 
+  useToast,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { deletePost } from "../HttpSevices/posts";
 import { useNavigate } from "react-router-dom";
-function ModalComp({ isOpen, setIsOpe , title  , id  }) {
- 
-   const navigate = useNavigate()
-   const toast = useToast()
+function ModalComp({ isOpen, setIsOpe, title, id }) {
+  const navigate = useNavigate();
+  const toast = useToast();
   const isClose = () => {
     setIsOpe(false);
   };
-
- 
-
 
   return (
     <>
@@ -58,20 +54,23 @@ function ModalComp({ isOpen, setIsOpe , title  , id  }) {
               colorScheme="red"
               mr={3}
               border="2px solid red"
-              onClick={()=> deletePost(id).then(() =>{
-                toast({
-                    position: 'bottom-right',
-                    render: () => (
-                      <Box color='white' p={3} bg='blue.500'>
-                        DELETED SUCESS
-                      </Box>
-                    ),
+              onClick={() =>
+                deletePost(id)
+                  .then(() => {
+                    toast({
+                      position: "bottom-right",
+                      render: () => (
+                        <Box color="white" p={3} bg="blue.500">
+                          DELETED SUCESS
+                        </Box>
+                      ),
+                    });
+                    navigate("/posts");
                   })
-                navigate("/posts")
-              }).catch((err) =>{
-                alert("failed to delete try again")
-              })
-            }
+                  .catch((err) => {
+                    alert("failed to delete try again");
+                  })
+              }
             >
               DELETE
             </Button>
