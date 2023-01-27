@@ -23,3 +23,8 @@ export const deletePost = (id) => {
     return axios.post(`http://localhost:3001/posts` , creds);
   };
 
+  export const patchData = (creds) => {
+    console.log(creds)
+    return axios.post(`http://localhost:3001/posts` , creds);
+  };
+
