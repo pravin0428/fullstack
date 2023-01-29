@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { deletePost } from "../HttpSevices/posts";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function ModalComp({ isOpen, setIsOpe, title, id }) {
   const navigate = useNavigate();
   const toast = useToast();
@@ -22,7 +22,7 @@ function ModalComp({ isOpen, setIsOpe, title, id }) {
 
   return (
     <>
-      <Button onClick={isOpen}>DELETE</Button>
+      <Link onClick={isOpen}>DELETE</Link>
 
       <Modal isOpen={isOpen} onClose={isClose}>
         <ModalOverlay />

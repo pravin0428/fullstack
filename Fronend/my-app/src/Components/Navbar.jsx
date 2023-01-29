@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
+import ButtonComp from "./ButtonComp";
 
 function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -32,11 +33,12 @@ function Nav() {
               {/* add post button */}
 
               <Link to="/posts">
-                <Button>Post</Button>
+                
+                <ButtonComp name="Post" />
               </Link>
 
               <Link to="/addpost">
-                <Button>Add Post</Button>
+                <ButtonComp name="Add Post" /> 
               </Link>
 
               <Button onClick={toggleColorMode}>

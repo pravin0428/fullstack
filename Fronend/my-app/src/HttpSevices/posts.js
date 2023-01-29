@@ -5,10 +5,8 @@ export const getAllPosts = () => {
   };
 
 export const getAllPostsDetailsById = ({id}) => {
-  axios.get(`http://localhost:3001/posts/${id}`).then((res) => {
-    console.log(res);
-    return res;
-  });
+  console.log(id);
+ return axios.get(`http://localhost:3001/posts/${id}`)
 };
 
 //delte post by id for 
@@ -18,13 +16,17 @@ export const deletePost = (id) => {
     return axios.delete(`http://localhost:3001/posts/${id}`);
   };
 
+// post data requetst working perfectlly fine
+
   export const postData = (creds) => {
-    console.log(creds)
+    // console.log(creds)
     return axios.post(`http://localhost:3001/posts` , creds);
   };
 
-  export const patchData = (creds) => {
-    console.log(creds)
-    return axios.post(`http://localhost:3001/posts` , creds);
-  };
+//this is for edit post but now i am doing this opration in componenet itself
+
+//    export const demo  = async({id , formData}) =>{
+//     let newData = await axios.put(`http://localhost:3001/posts/${id}`, formData)
+//       return newData 
+//  }
 

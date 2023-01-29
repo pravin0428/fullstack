@@ -6,15 +6,10 @@ import {
   EditablePreview,
   EditableTextarea,
   Input,
-  Toast,
   useToast,
-} from "@chakra-ui/react";
-import {
-  FormControl,
   FormLabel,
-  FormErrorMessage,
-  FormHelperText,
 } from "@chakra-ui/react";
+
 import React from "react";
 import { useState } from "react";
 import joi from "joi-browser";
@@ -30,7 +25,7 @@ const initState = {
 
 function AddPost() {
   const [formData, setFormData] = useState(initState);
-  console.log(formData);
+  // console.log(formData);
   const navigate = useNavigate();
   const toast = useToast();
 
@@ -51,7 +46,7 @@ function AddPost() {
     //  AddPost()
     postData(formData)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
 
         toast({
           position: "bottom-right",
@@ -64,7 +59,7 @@ function AddPost() {
         navigate("/posts");
       })
       .catch((err) => {
-        console.log(err);
+        // console.log(err);
       });
   };
 
