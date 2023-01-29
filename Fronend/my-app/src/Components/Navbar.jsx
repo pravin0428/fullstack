@@ -33,12 +33,11 @@ function Nav() {
               {/* add post button */}
 
               <Link to="/posts">
-                
                 <ButtonComp name="Post" />
               </Link>
 
               <Link to="/addpost">
-                <ButtonComp name="Add Post" /> 
+                <ButtonComp name="Add Post" />
               </Link>
 
               <Button onClick={toggleColorMode}>

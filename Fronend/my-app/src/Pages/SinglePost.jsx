@@ -57,29 +57,20 @@ function SinglePost() {
 
   return (
     <>
-      <Box 
-        border="2px solid green" 
-      display="flex"  p={1} 
-    
-      >
-        
+      <Box border="2px solid green" display="flex" p={1}>
         <Menu>
           {({ isOpen }) => (
             <>
-           
-            <MenuButton
+              <MenuButton
                 isActive={isOpen}
                 // as={Button}
                 rightIcon={<ChevronDownIcon />}
-                 border="4px solid green"
-             
-                 ml="10px"
-              
+                border="4px solid green"
+                ml="10px"
               >
                 {isOpen ? "Close" : "More"}
               </MenuButton>
-         
-               
+
               <MenuList>
                 <Link to={`/posts/edit/${id}`}>
                   {" "}
@@ -100,9 +91,14 @@ function SinglePost() {
         </Menu>
       </Box>
       <Text>
-      {!proData.publishedAt ? dateFormat(proData.publishedAt) : null}
+        {!proData.publishedAt ? dateFormat(proData.publishedAt) : null}
       </Text>
-      <SingleProCard key={proData.id}  title={proData.title} proImage={proData.imageFileSet} body= {proData.body}  />
+      <SingleProCard
+        key={proData.id}
+        title={proData.title}
+        proImage={proData.imageFileSet}
+        body={proData.body}
+      />
 
       {/* <Center py={12} 
       // border="4px solid green"

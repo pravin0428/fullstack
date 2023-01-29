@@ -1,4 +1,16 @@
-import { Box, Button, Card, CardBody, CardFooter, CardHeader, Heading, Img, SimpleGrid, Stack, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardHeader,
+  Heading,
+  Img,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -22,31 +34,29 @@ function Posts() {
   }, []);
 
   return (
-    <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(300px, 1fr))'>
-       {data &&
-         data.map((elem) => (
-           <div key={elem.id} >
-              <Card>
-      <CardHeader>
-        <Heading size='md'>{elem.title}</Heading>
-      </CardHeader>
-      <CardBody>
-      <Img src={elem.imageFileSet} mb={4} />
-       
-      </CardBody>
-      <CardFooter margin="auto" justifyItems="center" >
-        
-        <Link to={`/posts/${elem.id}`}>
-                <ButtonComp name="View Product Details" /> 
-              </Link>
-      </CardFooter>
-    </Card>
-   
-  
-           </div>
-         ))}
-  
-  </SimpleGrid>
+    <SimpleGrid
+      spacing={4}
+      templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
+    >
+      {data &&
+        data.map((elem) => (
+          <div key={elem.id}>
+            <Card>
+              <CardHeader>
+                <Heading size="md">{elem.title}</Heading>
+              </CardHeader>
+              <CardBody>
+                <Img src={elem.imageFileSet} mb={4} />
+              </CardBody>
+              <CardFooter margin="auto" justifyItems="center">
+                <Link to={`/posts/${elem.id}`}>
+                  <ButtonComp name="View Product Details" />
+                </Link>
+              </CardFooter>
+            </Card>
+          </div>
+        ))}
+    </SimpleGrid>
 
     // <div>
     //   <SimpleGrid
