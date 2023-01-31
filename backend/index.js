@@ -4,30 +4,31 @@
 
 const express = require("express")
 const mongoose = require("mongoose");
-const router = require("./routes/postRoutes");
+// const router = require("./routes/postRoutes");
 const cors = require("cors")
  
 mongoose.set("strictQuery", false);
 const app = express() 
-
+const PORT = 8080
 app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors)
 
-app.use("/posts" , router )
+// app.use("/posts" , router )
 
-// app.get("/",(req , res) =>{
-//     res.send("hello world, my first responce")
-// })
+app.get("/",(req , res) =>{
+    res.send("hello world, my first responce")
+})
  
 
  
 //connecting to mongodb
-const connctionUrl = "mongodb+srv://pravinmohite:pravin123@full-stack-database.xsy5nwd.mongodb.net/?retryWrites=true&w=majority"
-mongoose.connect(connctionUrl , {
+const urlm = "mongodb+srv://pravin:pravin1234@cluster0.qg419fw.mongodb.net/?retryWrites=true&w=majority"
+// const connctionUrl =  "mongodb+srv://pravinmohite:pravin123@full-stack-database.xsy5nwd.mongodb.net/?retryWrites=true&w=majority"
+mongoose.connect(urlm , {
     useNewUrlParser: true
 }).then(()=>{
-    app.listen(8080 , ()=>{
-        console.log("db connected successfully http://localhost:8080")
+    app.listen(PORT , ()=>{
+        console.log(`db connected successfully http://localhost:${PORT}`)
     })
 }).catch((err) => console.log("db connection failure",err))
