@@ -20,16 +20,15 @@ import { getAllPosts } from "../HttpSevices/posts";
 
 function Posts() {
   const [data, setData] = useState([]);
-
-  console.log(data);
+ 
   useEffect(() => {
     getAllPosts()
       .then((res) => {
-        // console.log(res.data)
-        setData(res.data);
+         console.log(res.data.data,"in the post-------**------")
+        setData(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   }, []);
 

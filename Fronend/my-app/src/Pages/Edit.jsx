@@ -56,7 +56,7 @@ function Edit() {
 
     try {
       const response = await axios.put(
-        `http://localhost:3001/posts/${id}`,
+        `http://localhost:8080/posts/${id}`,
         formData
       );
       // console.log(response);

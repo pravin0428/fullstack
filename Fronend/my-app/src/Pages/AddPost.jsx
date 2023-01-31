@@ -46,7 +46,7 @@ function AddPost() {
     //  AddPost()
     postData(formData)
       .then((res) => {
-        // console.log(res);
+         console.log(res , ":::::-------::::::");
 
         toast({
           position: "bottom-right",
@@ -59,7 +59,7 @@ function AddPost() {
         navigate("/posts");
       })
       .catch((err) => {
-        // console.log(err);
+        console.log(err);
       });
   };
 
