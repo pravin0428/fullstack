@@ -4,7 +4,7 @@ body {
   font-weight: bold;
 }
 .ancker {
-  position: relative;
+  /* position: relative; */
   display: inline-block;
   padding: 5px;
   /* margin: 40px 0; */
@@ -14,7 +14,9 @@ body {
   transition: 0.5s;
   letter-spacing: 4px;
   overflow: hidden;
-  margin-right: 50px;
+  /* background-color: #41ff30;   */
+  /* margin-right: 50px; */
+  /* border: 2px solid yellow; */
 }
 .ancker:hover {
   background: #03e9f4;

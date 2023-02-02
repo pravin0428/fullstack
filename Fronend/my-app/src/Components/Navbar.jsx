@@ -16,6 +16,8 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Link } from "react-router-dom";
 import ButtonComp from "./ButtonComp";
+import PostAndAddPostLink from "./PostAndAddPostLink";
+import MenuSmallScreen from "./MenuSmallScreen";
 
 function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -32,14 +34,8 @@ function Nav() {
             <Stack direction={"row"} spacing={7}>
               {/* add post button */}
 
-              <Link to="/posts">
-                <ButtonComp name="Post" />
-              </Link>
-
-              <Link to="/addpost">
-                <ButtonComp name="Add Post" />
-              </Link>
-
+              <PostAndAddPostLink />
+              <MenuSmallScreen />
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
@@ -72,7 +68,10 @@ function Nav() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Servers</MenuItem>
+
+                  <MenuItem>
+                    <PostAndAddPostLink />
+                  </MenuItem>
                   <MenuItem>Account Settings</MenuItem>
                   <MenuItem>Logout</MenuItem>
                 </MenuList>

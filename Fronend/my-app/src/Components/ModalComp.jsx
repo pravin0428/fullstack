@@ -13,6 +13,7 @@ import {
 import { useState } from "react";
 import { deletePost } from "../HttpSevices/posts";
 import { Link, useNavigate } from "react-router-dom";
+
 function ModalComp({ isOpen, setIsOpe, title, id }) {
   const navigate = useNavigate();
   const toast = useToast();
@@ -22,7 +23,7 @@ function ModalComp({ isOpen, setIsOpe, title, id }) {
 
   return (
     <>
-      <Link onClick={isOpen}>DELETE</Link>
+      <Button onClick={isOpen}>DELETE</Button>
 
       <Modal isOpen={isOpen} onClose={isClose}>
         <ModalOverlay />

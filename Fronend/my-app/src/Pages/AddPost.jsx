@@ -72,8 +72,33 @@ function AddPost() {
   };
 
   return (
-    <Container maxWidth="lg">
-      <Box padding={2} border="2px solid green" mt={50}>
+    <Box
+    backgroundImage={"https://th.bing.com/th/id/R.39bd85ccce948909803868621a2cc050?rik=Sm0Vu8hXHf5mJw&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fHD-Nature-Backgrounds-Images-Download.jpg&ehk=BUfEe8Tl1kYxxNDDlFxMCRKKjwKA64sKN7i%2biRuJ6r4%3d&risl=1&pid=ImgRaw&r=0"}
+    bgSize="100%"
+    height="550px"
+    >
+    <Container 
+    p={10}
+    // border="4px solid teal"
+    //     border={{
+    //   base: "4px solid teal",
+    //   sm: "2px solid orange",
+    //   md: "2px solid black",
+    //   lg: "2px solid blue",
+    //   xl: "2px solid green",
+    //   "2xl": "2px solid yellow",
+    // }}
+    
+  
+    >
+      <Box 
+      padding={4} 
+      // border="2px solid green"
+    
+      
+       borderRadius="0px 20px 0px 20px"
+         backgroundColor="#667677"
+      >
         <form onSubmit={handleSubmit}>
           <FormLabel>Title</FormLabel>
           <Input
@@ -88,7 +113,12 @@ function AddPost() {
           <br />
 
           <FormLabel>Image</FormLabel>
-          <Box border="1px solid red" mt={2} mb={1}>
+          <Box 
+          border="2px solid black"
+           mt={2} mb={1}
+           p={4}
+           textAlign="start"
+           >
             <FileBase64
               onDone={(e) => {
                 formData.imageFileSet = e.base64;
@@ -98,9 +128,10 @@ function AddPost() {
 
           <FormLabel>body</FormLabel>
           {/* <Input type='text' border="2px solid black" placeholder='enter product body'  /> */}
-          <Editable defaultValue="enter product body" border="2px solid black">
+          <Editable defaultValue="enter product body" border="2px solid black" p={2}  textAlign="start" >
             <EditablePreview />
             <EditableTextarea
+            
               name="body"
               value={formData.body}
               onChange={(e) => handleChange(e)}
@@ -110,7 +141,7 @@ function AddPost() {
           <br />
           <Button
             color={"white"}
-            bg={"green.400"}
+            bg={"#41ff30"}
             _hover={{
               bg: "green.500",
             }}
@@ -121,6 +152,7 @@ function AddPost() {
         </form>
       </Box>
     </Container>
+    </Box>
   );
 }
 

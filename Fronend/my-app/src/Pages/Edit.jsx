@@ -17,7 +17,10 @@ import {
 
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getAllPostsDetailsById } from "../HttpSevices/posts";
+import {
+  getAllPostsDetailsById,
+  getPostsDetailsById,
+} from "../HttpSevices/posts";
 import FileBase64 from "react-file-base64";
 import { useEffect } from "react";
 import joi from "joi-browser";
@@ -56,10 +59,10 @@ function Edit() {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/posts/${id}`,
+        `http://localhost:3001/posts/${id}`,
         formData
       );
-      // console.log(response);
+      console.log(response, ":---------:");
       toast({
         position: "bottom-right",
         render: () => (
@@ -88,27 +91,14 @@ function Edit() {
 
   // request for path the data
   useEffect(() => {
-    getAllPostsDetailsById({ id })
+    getPostsDetailsById(id)
       .then(({ data: res }) => {
         // console.log(res.data , "KKKKKKKKKK")
-
-        // console.log(formData , "check me before------")
-
-        formData.title = res.title;
-        formData.imageFileSet = res.imageFileSet;
-        formData.body = res.body;
-
-        console.log(
-          formData.title,
-          formData.imageFileSet,
-          formData.body,
-          "qqqqqqqqqq"
-        );
-
-        setFormData(formData);
-        console.log(formData, "check me------");
+        console.log(formData, "check me before------");
+         setFormData(res);
+        console.log(formData, "check me after------");
       })
-      .then((e) => {
+      .catch((e) => {
         console.log(e);
       });
   }, [id]);

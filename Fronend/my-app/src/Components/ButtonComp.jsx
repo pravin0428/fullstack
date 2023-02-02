@@ -1,15 +1,16 @@
-import { MenuButton } from "@chakra-ui/react";
+import {  Box } from "@chakra-ui/react";
 import React from "react";
+
 import styles from "./ButtonComp.module.css";
 function ButtonComp({ name }) {
   return (
-    <a className={styles.ancker}>
+    <Box className={styles.ancker}>
       <span></span>
       <span></span>
       <span></span>
       <span></span>
       {name}
-    </a>
+    </Box>
   );
 }
 
