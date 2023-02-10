@@ -20,6 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   getAllPostsDetailsById,
   getPostsDetailsById,
+  putDataEdit,
 } from "../HttpSevices/posts";
 import FileBase64 from "react-file-base64";
 import { useEffect } from "react";
@@ -35,6 +36,7 @@ const initState = {
 function Edit() {
   const [prevData, setPrevData] = useState([]);
   const [formData, setFormData] = useState(initState);
+  // const [checkData , setCheckData] = useState({})
   // console.log(formData);
 
   const navigate = useNavigate();
@@ -58,20 +60,31 @@ function Edit() {
     e.preventDefault();
 
     try {
-      const response = await axios.put(
-        `http://localhost:3001/posts/${id}`,
-        formData
-      );
-      console.log(response, ":---------:");
-      toast({
-        position: "bottom-right",
-        render: () => (
-          <Box color="white" p={3} bg="blue.500">
-            Product Edited successfully
-          </Box>
-        ),
-      });
-      navigate("/posts");
+      // const response = await axios.put(
+      //   `http://localhost:3001/posts/${id}`,
+      //   formData
+      // );
+      // console.log(response, ":---------:");
+
+       putDataEdit(id , formData).then((res)=>{
+        let check = res.data.message._original  
+        // setCheckData(check)
+       })
+        // if(checkData){
+          toast({
+            position: "bottom-right",
+            render: () => (
+              <Box color="white" p={3} bg="blue.500">
+                Product Edited successfully
+              </Box>
+            ),
+          });
+          navigate("/posts");
+        // }
+        // else{
+        //   alert("change something in data else go to privios page ")
+        // }
+      
     } catch (error) {
       console.log(error);
     }
@@ -93,9 +106,9 @@ function Edit() {
   useEffect(() => {
     getPostsDetailsById(id)
       .then(({ data: res }) => {
-        // console.log(res.data , "KKKKKKKKKK")
+         console.log(res.data , "KKKKKKKKKK")
         console.log(formData, "check me before------");
-         setFormData(res);
+         setFormData(res.data);
         console.log(formData, "check me after------");
       })
       .catch((e) => {
@@ -115,9 +128,11 @@ function Edit() {
         bg={useColorModeValue("white", "gray.900")}
         boxShadow={"2xl"}
         padding={4}
+        
       >
-        <Flex flex={1} bg="blue.200">
+        <Flex flex={1} bg="blue.200"   >
           <Image
+           
             objectFit="cover"
             boxSize="100%"
             src={formData.imageFileSet}
@@ -134,17 +149,18 @@ function Edit() {
         >
           <Grid Container>
             {/* for image updating */}
-            <Grid item xs={12} sm={4}></Grid>
+            {/* <Grid item xs={12} sm={4}></Grid> */}
 
             {/* form container */}
-            <Grid item xs={12} sm={8}>
-              <Box padding={2} border="2px solid green" mt={50}>
+            <Grid item xs={12} sm={8}  >
+              <Box padding={2} border="2px solid yellow"  w="160%"  backgroundColor="green.400" borderRadius="0px 25px 0px 25px"  marginLeft="-14" >
+
                 <form onSubmit={handleSubmit}>
                   <FormLabel>Title</FormLabel>
                   <Input
                     type="text"
                     border="2px solid black"
-                    placeholder="enter product name"
+                    placeholder="Enter Product Name"
                     name="title"
                     value={formData.title}
                     onChange={(e) => handleChange(e)}
@@ -152,19 +168,36 @@ function Edit() {
                   <br />
                   <br />
 
+          
                   <FormLabel>Image</FormLabel>
-                  <Box border="1px solid red" mt={2} mb={1}>
+          <Box 
+          border="2px solid black"
+           mt={2} mb={1}
+           p={4}
+           textAlign="start"
+           >
+              <Input
+            type="text"
+            border="2px solid black"
+            placeholder="Enter Image URL"
+            name="imageFileSet"
+            value={formData.imageFileSet}
+            onChange={(e) => handleChange(e)}
+          />
+         
+          </Box>
+                  {/* <Box border="1px solid red" mt={2} mb={1}>
                     <FileBase64
                       onDone={(e) => {
                         formData.imageFileSet = e.base64;
                       }}
                     />
-                  </Box>
+                  </Box> */}
 
                   <FormLabel>body</FormLabel>
                   {/* <Input type='text' border="2px solid black" placeholder='enter product body'  /> */}
                   <Editable
-                    defaultValue="enter product body"
+                    defaultValue="Enter Product Description"
                     border="2px solid black"
                   >
                     <EditablePreview />
@@ -178,9 +211,11 @@ function Edit() {
                   <br />
                   <Button
                     color={"white"}
-                    bg={"green.400"}
+                    width="150px"
+                    bg={"green"}
                     _hover={{
                       bg: "green.500",
+                      border:"2px solid green"
                     }}
                     onClick={(e) => handleSubmit(e)}
                   >

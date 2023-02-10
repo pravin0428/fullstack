@@ -12,7 +12,9 @@ import { Link } from "react-router-dom";
 
 export default function SingleProCard({ title, proImage, body, id }) {
   return (
-    <Container maxW={"7xl"} border="4px solid green">
+    <Container maxW={"7xl"}
+    //  border="4px solid green"
+     >
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}

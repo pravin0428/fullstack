@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import ModalComp from "../Components/ModalComp";
 import SingleProCard from "../Components/SingleProCard";
@@ -20,12 +20,12 @@ function SinglePost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // console.log(proData);
   const { id } = useParams();
-  // console.log(id , "||||||");
+   console.log(id , "||||||");
   useEffect(() => {
     getPostsDetailsById(id)
       .then((res) => {
-        // console.log(res.data ,"in the post-------**------")
-        setProData(res.data);
+        console.log(res.data ,"in the Singlepost-------**------")
+        setProData(res.data.data);
       })
       .catch((err) => {
         console.log(err.message);
@@ -44,13 +44,16 @@ function SinglePost() {
 
   return (
     <>
-      <Box border="4px solid red" display="flex" justifyItems="start">
-        <Menu closeOnSelect={false}>
-          <MenuButton as={Button} colorScheme="blue" minWidth="150px">
+      <Box 
+      // border="4px solid red"
+      p={5}
+       display="flex" justifyItems="start">
+        <Menu closeOnSelect={false} >
+          <MenuButton as={Button} colorScheme='red' variant='outline'>
             DELETE
           </MenuButton>
           <MenuList minWidth="240px">
-            {/* <MenuItemOption   as={Link} to={`/posts/${id}/edit`} >Edit</MenuItemOption> */}
+            
             <MenuItemOption as={Button} onClick={opneModelCom}>
               <ModalComp
                 isOpen={isModalOpen}
@@ -59,16 +62,17 @@ function SinglePost() {
                 id={id}
               />
             </MenuItemOption>
+            <MenuItemOption   as={Link} to={`/posts/${id}/edit`} >future expansion</MenuItemOption>
           </MenuList>
         </Menu>
       </Box>
 
       <SingleProCard
-        key={proData.id}
+        key={proData._id}
         title={proData.title}
         proImage={proData.imageFileSet}
-        body={proData.body}
-        id={proData.id}
+        body={proData.description}
+        id={proData._id}
       />
     </>
   );

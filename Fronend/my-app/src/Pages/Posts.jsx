@@ -22,7 +22,7 @@ import {
       getAllPosts()
         .then((res) => {
         //    console.log(res.data,"in the post-------**------")
-          setData(res.data);
+          setData(res.data.data);
         })
         .catch((err) => {
           console.log(err.message);
@@ -37,7 +37,7 @@ import {
         p={1}
       >
         {data?.map((elem) => (
-            <div key={elem.id}>
+            <div key={elem._id}>
               <Card 
           //  border="3px solid" 
           height="100%"
@@ -57,7 +57,7 @@ import {
                  margin="auto" 
                  justifyItems="center" 
                  marginTop="-35px" >
-                  <Link to={`/posts/${elem.id}`}  >
+                  <Link to={`/posts/${elem._id}`}  >
                     <ButtonComp name="Details"    />
                   </Link>
                 </CardFooter>

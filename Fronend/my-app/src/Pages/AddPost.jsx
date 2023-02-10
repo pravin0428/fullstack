@@ -8,6 +8,8 @@ import {
   Input,
   useToast,
   FormLabel,
+  Heading,
+  Image,
 } from "@chakra-ui/react";
 
 import React from "react";
@@ -16,25 +18,27 @@ import joi from "joi-browser";
 import { postData } from "../HttpSevices/posts";
 import { useNavigate } from "react-router-dom";
 import FileBase64 from "react-file-base64";
+import ToastComp from "../Components/TostComp";
 
 const initState = {
   title: "",
   imageFileSet: "",
   body: "",
+  publishedAt : ""
 };
 
 function AddPost() {
   const [formData, setFormData] = useState(initState);
-  // console.log(formData);
+   console.log(formData,"--------))))-------");
   const navigate = useNavigate();
   const toast = useToast();
 
   const handleChange = (e) => {
     //validation
-    const { error } = joi.validate([e.target.name], schema[e.target.name], {
-      abortEarly: true,
-    });
-    console.log("re----re", error);
+    // const { error } = joi.validate([e.target.name], schema[e.target.name], {
+    //   abortEarly: true,
+    // });
+    // console.log("re----re", error);
     // !error?error[target.name] = "" : error[target.name] = error.details[0].message
     // console.log(e.target.name);
     // console.log(e.target.value);
@@ -43,33 +47,40 @@ function AddPost() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //  AddPost()
-    postData(formData)
-      .then((res) => {
-         console.log(res , ":::::-------::::::");
-
-        toast({
-          position: "bottom-right",
+    postData(formData).then((res)=>{
+      console.log(res , "----in addpost comp--------");
+     if(formData.title !== "" ||  formData.imageFileSet !== "" || formData.body !== "" ||  formData.imageFileSet !== "" ){
+      toast({
+        position: "bottom-right",
+        render: () => (
+          <Box color="white" p={3} bg="blue.500">
+            Product Added successfully
+          </Box>
+        ),
+      });
+      navigate("/posts");
+     }
+      
+    }).catch((err) => {
+      console.log(err.response.data);
+           toast({
+          position: "top",
           render: () => (
-            <Box color="white" p={3} bg="blue.500">
-              Product added successfully
+            <Box color="white" p={3} bg="orange">
+             {err.response.data}
             </Box>
           ),
         });
-        navigate("/posts");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    })
   };
 
   //now will goin to validate our form inputs using joi-browser
 
-  const schema = {
-    title: joi.string().required().label("Title").min(5),
-    imageFileSet: joi.string().required().label("imageFileSet"),
-    body: joi.string().required().label("body"),
-  };
+  // const schema = {
+  //   title: joi.string().required().label("Title").min(5),
+  //   imageFileSet: joi.string().required().label("imageFileSet"),
+  //   body: joi.string().required().label("body"),
+  // };
 
   return (
     <Box
@@ -79,7 +90,12 @@ function AddPost() {
     >
     <Container 
     p={10}
-    // border="4px solid teal"
+    display="flex"
+    //  border="4px solid teal"
+     maxW='100%'
+     
+     height="auto"
+     justifyContent="space-between"
     //     border={{
     //   base: "4px solid teal",
     //   sm: "2px solid orange",
@@ -92,19 +108,42 @@ function AddPost() {
   
     >
       <Box 
+      // border={ "4px solid teal"}  
+      width="70%" 
+       borderRadius="0px 0px 0px 30px"
+      >
+      <Image
+            objectFit="cover"
+            boxSize="100%"
+            src={formData.imageFileSet}
+            color="white"
+            alt="once you add the image will appeare here"
+            borderRadius="0px 0px 0px 30px"
+          />
+      </Box>
+
+      <Box 
       padding={4} 
       // border="2px solid green"
-    
-      
-       borderRadius="0px 20px 0px 20px"
-         backgroundColor="#667677"
+        borderRadius="0px 30px 0px 0px"
+         backgroundColor="rgb(77, 207, 250)"
+         width="400px"
       >
         <form onSubmit={handleSubmit}>
+        <FormLabel>Date</FormLabel>
+          <Input
+            type="date"
+            border="2px solid black"
+            placeholder="Enter Date"
+            name="publishedAt"
+            value={formData.publishedAt}
+            onChange={(e) => handleChange(e)}
+          />
           <FormLabel>Title</FormLabel>
           <Input
             type="text"
             border="2px solid black"
-            placeholder="enter product name"
+            placeholder="Enter Product Name"
             name="title"
             value={formData.title}
             onChange={(e) => handleChange(e)}
@@ -119,16 +158,26 @@ function AddPost() {
            p={4}
            textAlign="start"
            >
+              <Input
+            type="text"
+            border="2px solid black"
+            placeholder="Enter Image URL"
+            name="imageFileSet"
+            value={formData.imageFileSet}
+            onChange={(e) => handleChange(e)}
+          />
+          {/* <br /> */}
+          {/* <Heading textAlign="center" >----or option-----</Heading>
             <FileBase64
               onDone={(e) => {
                 formData.imageFileSet = e.base64;
               }}
-            />
+            /> */}
           </Box>
 
-          <FormLabel>body</FormLabel>
+          <FormLabel>description</FormLabel>
           {/* <Input type='text' border="2px solid black" placeholder='enter product body'  /> */}
-          <Editable defaultValue="enter product body" border="2px solid black" p={2}  textAlign="start" >
+          <Editable defaultValue="Enter Product Description" border="2px solid black" p={2}  textAlign="start" >
             <EditablePreview />
             <EditableTextarea
             
@@ -140,10 +189,11 @@ function AddPost() {
           <br />
           <br />
           <Button
+          w="200px"
             color={"white"}
-            bg={"#41ff30"}
+            bg="blue.800"
             _hover={{
-              bg: "green.500",
+              bg: "blue",
             }}
             onClick={(e) => handleSubmit(e)}
           >

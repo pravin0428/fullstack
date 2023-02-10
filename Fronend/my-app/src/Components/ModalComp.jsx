@@ -23,7 +23,7 @@ function ModalComp({ isOpen, setIsOpe, title, id }) {
 
   return (
     <>
-      <Button onClick={isOpen}>DELETE</Button>
+      <Button onClick={isOpen} background="none" >DELETE</Button>
 
       <Modal isOpen={isOpen} onClose={isClose}>
         <ModalOverlay />
@@ -37,7 +37,7 @@ function ModalComp({ isOpen, setIsOpe, title, id }) {
           </ModalBody>
 
           <ModalFooter
-            border="2px solid red"
+            // border="2px solid red"
             display="flex"
             justifyContent="space-evenly"
           >
