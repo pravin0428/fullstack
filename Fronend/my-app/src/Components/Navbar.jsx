@@ -18,10 +18,12 @@ import { Link } from "react-router-dom";
 import ButtonComp from "./ButtonComp";
 import PostAndAddPostLink from "./PostAndAddPostLink";
 import MenuSmallScreen from "./MenuSmallScreen";
+import { useSelector } from "react-redux";
 
 function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
-
+  const {role ,  userEmail , isAuth} = useSelector((store) => store.auth);
+  
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -34,13 +36,21 @@ function Nav() {
             <Stack direction={"row"} spacing={7}>
               {/* add post button */}
 
-              <PostAndAddPostLink />
-              <MenuSmallScreen />
+              {role  === "Admin" ? (
+               <>
+                  <PostAndAddPostLink />
+                 <MenuSmallScreen />
+               </>
+              ) : (
+                null
+              )}
+              
               <Button onClick={toggleColorMode}>
                 {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
               </Button>
 
-              <Menu>
+             {role === "Admin" ?(
+            <Menu>
                 <MenuButton
                   as={Button}
                   rounded={"full"}
@@ -48,23 +58,17 @@ function Nav() {
                   cursor={"pointer"}
                   minW={0}
                 >
-                  <Avatar
-                    size={"sm"}
-                    src={"https://avatars.dicebear.com/api/male/username.svg"}
-                  />
+                  <Button borderRadius="50%" backgroundColor="blue.100" >{userEmail[0].toUpperCase()}</Button>
                 </MenuButton>
 
-                <MenuList alignItems={"center"}>
+                 <MenuList alignItems={"center"}>
                   <br />
                   <Center>
-                    <Avatar
-                      size={"2xl"}
-                      src={"https://avatars.dicebear.com/api/male/username.svg"}
-                    />
+                  <Button borderRadius="50%" backgroundColor="blue.100" >{userEmail[0].toUpperCase()}</Button>
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                   {isAuth ? <p>{userEmail}</p> : <p>name</p>}  
                   </Center>
                   <br />
                   <MenuDivider />
@@ -73,9 +77,22 @@ function Nav() {
                     <PostAndAddPostLink />
                   </MenuItem>
                   <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem as="Button" onClick={() => isAuth ? !isAuth  : isAuth} >Logout</MenuItem>
                 </MenuList>
-              </Menu>
+              </Menu>  
+             ) : (
+              <> 
+              {isAuth? <Button onClick={() => isAuth ? !isAuth  : isAuth} >Logout</Button> : 
+              <>  <Link to="/signup" >Signup</Link>
+              <Link to="/login" >Login</Link></>
+              }
+               
+               </>
+             )}
+             
+
+ 
+
             </Stack>
           </Flex>
         </Flex>

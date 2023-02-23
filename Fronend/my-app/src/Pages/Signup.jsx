@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Flex,
   FormControl,
@@ -6,6 +7,7 @@ import {
   Heading,
   Input,
   Stack,
+  useToast,
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -23,7 +25,7 @@ function Signup() {
   }); 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const toast = useToast()
   
 
   function handleChange(e) {
@@ -48,7 +50,7 @@ function Signup() {
   if (loading) {
     return <div>....Loading</div>;
   } else if (error) {
-    return <div>....Error</div>;
+    return <div>....Error! please check your internet connection</div>
   }
   return (
     <>
@@ -116,4 +118,3 @@ function Signup() {
 }
 
 export default Signup;
-

@@ -32,12 +32,12 @@ import {
     return (
       <SimpleGrid
         spacing={4}
-        // border="3px solid"//
+        // border="3px solid"
         templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
         p={1}
       >
         {data?.map((elem) => (
-            <div key={elem._id}>
+            <div key={elem.id}>
               <Card 
           //  border="3px solid" 
           height="100%"

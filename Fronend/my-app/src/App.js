@@ -1,14 +1,13 @@
-import "./App.css";
-import Nav from "./Components/Navbar";
-import AllRoutes from "./Pages/AllRoutes";
-import Posts from "./Pages/Posts";
-import SinglePost from "./Pages/SinglePost";
+
+import './App.css';
+import Nav from './Components/Navbar';
+import AllRoutes from './Pages/AllRoutes';
 
 function App() {
   return (
     <div className="App">
-      <Nav />
-      <AllRoutes />
+     <Nav/>
+     <AllRoutes/>
     </div>
   );
 }

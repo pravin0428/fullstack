@@ -6,11 +6,10 @@ import {
   MenuList,
   Button,
   MenuItemOption,
-  
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import ModalComp from "../Components/ModalComp";
 import SingleProCard from "../Components/SingleProCard";
@@ -21,17 +20,22 @@ function SinglePost() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // console.log(proData);
   const { id } = useParams();
-   console.log(id , "||||||");
+  const navigate = useNavigate()
+  // console.log(id , "||||||");
   useEffect(() => {
     getPostsDetailsById(id)
       .then((res) => {
-        console.log(res.data ,"in the Singlepost-------**------")
+        // console.log(res.data ,"in the post-------**------")
         setProData(res.data.data);
       })
       .catch((err) => {
         console.log(err.message);
       });
   }, [id]);
+
+  const handleAddToCart = () =>{
+    navigate(`/posts/${id}/edit`)
+}
 
   const opneModelCom = () => {
     setIsModalOpen(true);
@@ -42,19 +46,16 @@ function SinglePost() {
     let date = new Date();
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
   };
-
+ 
   return (
     <>
-      <Box 
-      // border="4px solid red"
-      p={5}
-       display="flex" justifyItems="start">
-        <Menu closeOnSelect={false} >
-          <MenuButton as={Button} colorScheme='red' variant='outline'>
+      <Box border="4px solid red" display="flex" justifyItems="start">
+        <Menu closeOnSelect={false}>
+          <MenuButton as={Button} colorScheme="blue" minWidth="150px">
             DELETE
           </MenuButton>
           <MenuList minWidth="240px">
-            
+            {/* <MenuItemOption   as={Link} to={`/posts/${id}/edit`} >Edit</MenuItemOption> */}
             <MenuItemOption as={Button} onClick={opneModelCom}>
               <ModalComp
                 isOpen={isModalOpen}
@@ -63,7 +64,6 @@ function SinglePost() {
                 id={id}
               />
             </MenuItemOption>
-            <MenuItemOption   as={Link} to={`/posts/${id}/edit`} >future expansion</MenuItemOption>
           </MenuList>
         </Menu>
       </Box>
@@ -74,6 +74,8 @@ function SinglePost() {
         proImage={proData.imageFileSet}
         body={proData.description}
         id={proData._id}
+        button_text="Edit Product Information"
+        handleAddToCart={handleAddToCart}
       />
     </>
   );

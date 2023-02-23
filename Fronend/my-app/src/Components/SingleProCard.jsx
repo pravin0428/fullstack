@@ -10,11 +10,9 @@ import {
 } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
-export default function SingleProCard({ title, proImage, body, id }) {
+export default function SingleProCard({ title, proImage, body, id , button_text , handleAddToCart}) {
   return (
-    <Container maxW={"7xl"}
-    //  border="4px solid green"
-     >
+    <Container maxW={"7xl"} border="4px solid green">
       <Stack
         align={"center"}
         spacing={{ base: 8, md: 10 }}
@@ -48,7 +46,7 @@ export default function SingleProCard({ title, proImage, body, id }) {
               {title}
             </Text>
           </Heading>
-          <Text color={"gray.500"}>description : {body}</Text>
+          <Text color={"gray.500"}>description : <p>{body}</p></Text>
           <Stack
             spacing={{ base: 4, sm: 6 }}
             direction={{ base: "column", sm: "row" }}
@@ -63,10 +61,11 @@ export default function SingleProCard({ title, proImage, body, id }) {
               colorScheme={"red"}
               bg={"red.400"}
               _hover={{ bg: "red.500" }}
-              as={Link}
-              to={`/posts/${id}/edit`}
+              // as={Link}
+              // to={`/posts/${id}/edit`}
+              onClick={handleAddToCart}
             >
-              Edit Product Information
+               {button_text}
             </Button>
           </Stack>
         </Stack>
@@ -79,7 +78,8 @@ export default function SingleProCard({ title, proImage, body, id }) {
         >
           <Box
             position={"relative"}
-            height={"300px"}
+            height={"100%"}
+            w={"100%"}
             rounded={"2xl"}
             boxShadow={"2xl"}
             width={"full"}
