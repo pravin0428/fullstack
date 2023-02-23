@@ -32,7 +32,7 @@ import {
     return (
       <SimpleGrid
         spacing={4}
-        // border="3px solid"
+        // border="3px solid"//
         templateColumns="repeat(auto-fill, minmax(300px, 1fr))"
         p={1}
       >
